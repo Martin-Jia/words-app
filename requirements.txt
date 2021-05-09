@@ -1,0 +1,7 @@
+flask
+flask-restful
+flask-cors
+flask-compress
+Flask-HTTPAuth
+pyjwt
+pymongo
