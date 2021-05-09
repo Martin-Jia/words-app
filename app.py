@@ -13,7 +13,9 @@ logger = logging.getLogger("restfulapi")
 app = Flask(__name__)
 auth = HTTPTokenAuth(scheme='Bearer')
 cur_salt = {}  # {sault: sault, expire_time: utc timestamp(second)}
-db_connector = None
+db_connector = DatabaseConnector()
+set_salt()
+Timer(Constants.SALT_EXPIRE_TIME, set_salt).start()
 
 def set_salt():
     cur_salt['salt'] = get_salt(Constants.SALT_LEN)
@@ -95,8 +97,6 @@ def logout():
     return pack(None, None, 'logged out')
 
 @app.route('/')
-if __name__ == "__main__":
-    db_connector = DatabaseConnector()
-    set_salt()
-    Timer(Constants.SALT_EXPIRE_TIME, set_salt).start()
-    app.run()
+def test():
+    return 'hello world'
+
