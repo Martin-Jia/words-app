@@ -30,5 +30,5 @@ class Constants:
     CONST_SALT = os.environ.get('CONST_SALT')
     SALT_LEN = 6
     SALT_EXPIRE_TIME = 360
-    TOKEN_EXPIRE_TIME = 3600
+    TOKEN_EXPIRE_TIME = 3600 * 24 * 3
     
