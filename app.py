@@ -14,12 +14,13 @@ app = Flask(__name__)
 auth = HTTPTokenAuth(scheme='Bearer')
 cur_salt = {}  # {sault: sault, expire_time: utc timestamp(second)}
 db_connector = DatabaseConnector()
-def set_salt():
-    cur_salt['salt'] = get_salt(Constants.SALT_LEN)
-    cur_salt['expire'] = datetime.datetime.utcnow().timestamp() + Constants.SALT_EXPIRE_TIME
 
 def gen_salt(salt_len):
     return ''.join(random.sample(string.ascii_letters + string.digits, salt_len))
+
+def set_salt():
+    cur_salt['salt'] = gen_salt(Constants.SALT_LEN)
+    cur_salt['expire'] = datetime.datetime.utcnow().timestamp() + Constants.SALT_EXPIRE_TIME
 
 set_salt()
 Timer(Constants.SALT_EXPIRE_TIME, set_salt).start()
